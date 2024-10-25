@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaShoppingBasket } from 'react-icons/fa';
+import useCart from '../hooks/useCart';
 import greenTeaImage from '../assets/images/green_tea.webp';
 import coffeeImage from '../assets/images/coffee.webp';
 import strawberriesImage from '../assets/images/Strawberries.jpg';
@@ -12,6 +13,7 @@ const imageMap = {
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const { addProductToCart } = useCart();
 
   useEffect(() => {
     fetch('http://localhost:3000/products')
@@ -22,7 +24,6 @@ const ProductList = () => {
         return response.json();
       })
       .then(data => {
-        console.log("Productos obtenidos:", data);
         setProducts(data);
       })
       .catch(error => {
@@ -53,7 +54,12 @@ const ProductList = () => {
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <button className="btn btn-outline-dark">Add to cart</button>
+                <button
+                      className="btn btn-outline-dark"
+                      onClick={() => addProductToCart(product.code)}
+                    >
+                      Add to cart
+                    </button>
                 </div>
               </div>
             </div>

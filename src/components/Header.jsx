@@ -6,6 +6,7 @@ import { CartContext } from '../context/CartContext';
 
 const Header = () => {
   const { cartItems } = useContext(CartContext);
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <nav className="navbar py-2 navbar-light bg-light navbar-expand-lg">
@@ -18,7 +19,7 @@ const Header = () => {
           <Link to="/cart" className="btn btn-outline-dark d-flex align-items-center">
             <FaShoppingCart className="me-2" />
             Cart
-            <span className="badge bg-dark text-white ms-2 rounded-pill">{cartItems.length}</span>
+            <span className="badge bg-dark text-white ms-2 rounded-pill">{totalQuantity}</span>
           </Link>
         </div>
       </div>
