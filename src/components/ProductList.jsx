@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import useProducts from '../hooks/useProducts';
 import { FaShoppingBasket } from 'react-icons/fa';
 import useCart from '../hooks/useCart';
 import greenTeaImage from '../assets/images/green_tea.webp';
@@ -6,30 +6,22 @@ import coffeeImage from '../assets/images/coffee.webp';
 import strawberriesImage from '../assets/images/Strawberries.jpg';
 
 const imageMap = {
-  'Green Tea': greenTeaImage,
-  'Coffee': coffeeImage,
-  'Strawberries': strawberriesImage
+  'GR1': greenTeaImage,
+  'CF1': coffeeImage,
+  'SR1': strawberriesImage
 };
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const { products, loading, error } = useProducts();
   const { addProductToCart } = useCart();
 
-  useEffect(() => {
-    fetch('http://localhost:3000/products')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error fetching products');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setProducts(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []);
+  if (loading) {
+    return <p className="container mt-2">Loading products...</p>;
+  }
+
+  if (error) {
+    return <p className="container mt-2">{error}</p>;
+  }
 
   return (
     <section className="pt-4">
@@ -43,13 +35,13 @@ const ProductList = () => {
             <div className="card h-100">
               <img
                 className="card-img-top"
-                src={imageMap[product.name]}
+                src={imageMap[product.code]}
                 alt={product.name}
               />
               <div className="card-body p-4">
                 <div className="text-center">
                   <h5 className="fw-bolder">{product.name}</h5>
-                  ${product.price}
+                  {product.price}€
                 </div>
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">

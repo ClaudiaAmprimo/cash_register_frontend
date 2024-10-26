@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,7 +13,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeProduct = (productId) => {
-    setCartItems((prevItems) => prevItems.filter(item => item.id !== productId));
+    setCartItems((prevItems) => prevItems.filter(item => item.product_code !== productId));
   };
 
   return (
