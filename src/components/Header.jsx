@@ -5,13 +5,14 @@ import { FaShoppingCart } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import './Header.css';
 
 const Header = () => {
   const { cartItems } = useContext(CartContext);
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="navbar py-2 navbar-light bg-light navbar-expand-lg">
+    <nav className="navbar py-1 custom-navbar navbar-expand-lg">
       <div className="container d-flex">
         <Link className="navbar-brand" to="/">
           AMENITIZ
